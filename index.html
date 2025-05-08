@@ -1,112 +1,3 @@
-<?php
-// Product data array - in a real implementation, this would come from a database
-$products = [
-    1 => [
-        'name' => 'Swimming Pool Glass Mosaic Tiles',
-        'category' => 'Pool Tiles',
-        'category_slug' => 'tiles',
-        'short_description' => 'Manufacturer of premium glass mosaic tiles for swimming pools.',
-        'long_description' => 'We manufacture and supply top-quality swimming pool glass mosaic tiles designed for aesthetic appeal and durability. Ideal for both residential and commercial pools, our tiles resist pool chemicals and maintain vibrant color.',
-        'features' => [
-            'Premium glass construction',
-            'Resistant to pool chemicals and UV exposure',
-            'Non-slip surface options available',
-            'Wide variety of colors and designs',
-            'Easy installation and maintenance'
-        ],
-        'images' => [
-            'images\glasstile.jpg',
-            'images\glasstile.jpg',
-            'images\glasstile.jpg'
-        ],
-        'related_products' => [2, 3, 4]
-    ],
-    2 => [
-        'name' => 'Vinyl Pool Liners',
-        'category' => 'Pool Liners',
-        'category_slug' => 'liners',
-        'short_description' => 'Durable vinyl liners that fit perfectly between water and pool structure.',
-        'long_description' => 'Our vinyl pool liners act as a protective layer between the water and the pool structure. Custom-manufactured for a perfect fit, they lock into the track at deck level and provide a smooth, durable, and chemical-resistant surface.',
-        'features' => [
-            'Heavy-duty vinyl material',
-            'Custom-made for perfect fit',
-            'Locks securely into pool track',
-            'Resistant to fading and tearing',
-            'Smooth and comfortable surface'
-        ],
-        'images' => [
-            'images\poolliner.jpg',
-            'images\poolliner.jpg',
-            'images\poolliner.jpg'
-        ],
-        'related_products' => [1, 3, 4]
-    ],
-    3 => [
-        'name' => 'Sand Pool Filters',
-        'category' => 'Pool Filters',
-        'category_slug' => 'filters',
-        'short_description' => 'Reliable sand filters designed for effective pool water cleaning.',
-        'long_description' => 'Our sand pool filters use a thick bed of special-grade sand to trap debris and impurities. Made from durable materials like fiberglass or metal, these filters ensure crystal clear water with easy maintenance and long-lasting performance.',
-        'features' => [
-            'Thick special-grade sand bed',
-            'Fiberglass or metal tank options',
-            'Effective debris and dirt filtration',
-            'Pressure gauge and multi-port valve included',
-            'Easy backwashing and maintenance'
-        ],
-        'images' => [
-            'images\filter.jpg',
-            'images\filter.jpg',
-            'images\filter.jpg'
-        ],
-        'related_products' => [1, 2, 4]
-    ],
-    4 => [
-        'name' => 'Readymade Swimming Pools',
-        'category' => 'Readymade Pools',
-        'category_slug' => 'pools',
-        'short_description' => 'Prefabricated swimming pools including FRP pools, inflatable spa pools, and hydrotherapy pools.',
-        'long_description' => 'We offer a range of readymade swimming pools such as FRP pools, inflatable spa pools, and hydrotherapy pools. Manufactured with high-quality materials, these pools are designed for quick installation, durability, and easy maintenance.',
-        'features' => [
-            'Prefabricated for fast installation',
-            'Durable FRP and other material options',
-            'Low maintenance requirements',
-            'Various shapes and sizes available',
-            'Suitable for residential and commercial use'
-        ],
-        'images' => [
-            'images\readymade.jpg',
-            'images\readymade.jpg',
-            'images\readymade.jpg'
-        ],
-        'related_products' => [1, 2, 3]
-    ]
-];
-
-
-// Get search query if exists
-$search_query = isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '';
-$filter_category = isset($_GET['category']) ? htmlspecialchars($_GET['category']) : 'all';
-
-// Filter products based on search and category
-$filtered_products = [];
-foreach ($products as $id => $product) {
-    // Skip if category filter is active and doesn't match
-    if ($filter_category !== 'all' && $product['category_slug'] !== $filter_category) {
-        continue;
-    }
-    
-    // Skip if search is active and doesn't match
-    if (!empty($search_query) && 
-        stripos($product['name'], $search_query) === false && 
-        stripos($product['category'], $search_query) === false && 
-        stripos($product['short_description'], $search_query) === false) {
-        continue;
-    }
-    
-    $filtered_products[$id] = $product;
-}
-?>
 <!DOCTYPE html>
 <!--[if lt IE 9 ]><html class="no-js oldie" lang="en"> <![endif]-->
 <!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
@@ -127,7 +18,7 @@ foreach ($products as $id => $product) {
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -163,7 +54,7 @@ foreach ($products as $id => $product) {
     <header class="s-header">
 
         <div class="header-logo">
-            <a class="site-logo" href="index.php">
+            <a class="site-logo" href="index.html">
                 <img src="images/logop.png" alt="Homepage">
             </a>
         </div>
@@ -219,7 +110,7 @@ foreach ($products as $id => $product) {
 
     <!-- home
     ================================================== -->
-    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="images\hheerroo.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="images/hheerroo.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
 
         <div class="overlay"></div>
         <div class="shadow-overlay"></div>
@@ -347,19 +238,25 @@ foreach ($products as $id => $product) {
         <!-- Search and Filter Bar -->
         <div class="row mb-5" data-aos="fade-up">
             <div class="col-md-8 col-lg-6 mx-auto">
-                <form action="index.php#products" method="GET" class="product-search-form">
+                <form id="product-search-form" class="product-search-form">
                     <div class="input-group mb-3">
-                        <input type="text" name="search" class="form-control" placeholder="Search products..." value="<?php echo htmlspecialchars($search_query ?? ''); ?>" aria-label="Search products">
+                        <input type="text" id="search-input" class="form-control" placeholder="Search products..." aria-label="Search products">
                         <button class="btn btn-gold" type="submit" style="background-color: #d4af37; color: #000; border-color: #d4af37;">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
-
-                    <!-- Hidden anchor for scrolling to products section -->
-                    <input type="hidden" name="section" value="products">
                 </form>
-
-
+                
+                <div class="filter-container">
+                    <div class="filter-label">Filter by Category</div>
+                    <div class="product-filters">
+                        <button class="filter-btn active" data-category="all">All Products</button>
+                        <button class="filter-btn" data-category="tiles">Pool Tiles</button>
+                        <button class="filter-btn" data-category="liners">Pool Liners</button>
+                        <button class="filter-btn" data-category="filters">Pool Filters</button>
+                        <button class="filter-btn" data-category="pools">Readymade Pools</button>
+                    </div>
+                </div>
                 
                 <div id="filter-status" class="text-center mt-3">
                     <span>Showing all products</span>
@@ -655,132 +552,11 @@ foreach ($products as $id => $product) {
 
         <!-- Products Grid -->
         <div class="row g-4 flex-nowrap justify-content-start" id="products-container" style="overflow-x:auto;">
-
-        <?php foreach ($filtered_products as $id => $product): ?>
-            <div class="col-3 product-item" data-category="<?php echo strtolower(htmlspecialchars($product['category'])); ?>" style="min-width:300px;" data-aos="fade-up" data-aos-delay="<?php echo ($id % 3) * 100; ?>">
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="<?php echo htmlspecialchars($product['images'][0]); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid">
-                        <div class="overlay">
-                            <a href="product-details.php?id=<?php echo $id; ?>" class="btn btn-outline-light">View Details</a>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 style="font-size: 1.5rem;"><?php echo htmlspecialchars($product['name']); ?></h3>
-                        <p style="font-size: 1rem;"><?php echo htmlspecialchars($product['short_description']); ?></p>
-                        <div class="price-request" style="font-size: 1.1rem;">Price on Request</div>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
-
+            <!-- Products will be dynamically inserted here by JavaScript -->
         </div>
 
     </div>
 </section>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const productItems = document.querySelectorAll('.product-item');
-    const filterStatus = document.getElementById('filter-status');
-    const productsContainer = document.getElementById('products-container');
-    
-    // Category name mapping for display
-    const categoryNames = {
-        'all': 'all products',
-        'tiles': 'Pool Tiles',
-        'filters': 'Pool Filters',
-        'readymade': 'Readymade Pools',
-        'liners': 'Pool Liners'
-    };
-    
-    // Function to update filter status text
-    function updateFilterStatus(category, count) {
-        filterStatus.innerHTML = `<span>Showing ${count} ${categoryNames[category]}${count !== 1 ? '' : ''}</span>`;
-        
-        // Animate the status text
-        filterStatus.style.opacity = '0';
-        setTimeout(() => {
-            filterStatus.style.opacity = '1';
-        }, 300);
-    }
-    
-    // Function to filter products with animation
-    function filterProducts(category) {
-    let visibleCount = 0;
-
-    productItems.forEach(item => {
-        item.classList.add('fade-out');
-    });
-
-    setTimeout(() => {
-        productItems.forEach(item => {
-            const itemCategory = item.dataset.category.toLowerCase();
-            const filterCategory = category.toLowerCase();
-
-            if (filterCategory === 'all' || itemCategory === filterCategory) {
-                item.style.display = 'block';
-                item.classList.remove('fade-out');
-                item.classList.add('fade-in');
-                visibleCount++;
-            } else {
-                item.style.display = 'none';
-                item.classList.remove('fade-in');
-            }
-        });
-
-        updateFilterStatus(category, visibleCount);
-
-        setTimeout(() => {
-            productItems.forEach(item => {
-                item.classList.remove('fade-in');
-            });
-        }, 500);
-    }, 300);
-}
-
-    
-    // Add click event to filter buttons
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Get the category from data attribute
-            const category = this.dataset.category;
-            
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Filter the products
-            filterProducts(category);
-            
-            // Scroll to products container if needed (on mobile)
-            if (window.innerWidth < 768) {
-                const yOffset = -20; 
-                const y = productsContainer.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                window.scrollTo({top: y, behavior: 'smooth'});
-            }
-        });
-    });
-    
-    // Initialize with "All Products" selected
-    const initialCategory = 'all';
-    let initialCount = 0;
-    
-    productItems.forEach(item => {
-        if (item.style.display !== 'none') {
-            initialCount++;
-        }
-    });
-    
-    updateFilterStatus(initialCategory, initialCount);
-});
-</script>
-
 
 <section id='services' class="s-services">
 
@@ -943,30 +719,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                     </div>
-
-                    
-                    <script>
-                        document.querySelectorAll('a').forEach(link => {
-                            link.addEventListener('mouseenter', () => {
-                                const img = link.querySelector('img');
-                                const caption = link.querySelector('div:nth-of-type(1)');
-                                const overlay = link.querySelector('div:nth-of-type(2)');
-                                img.style.transform = 'scale(1.2)';
-                                caption.style.opacity = '1';
-                                caption.style.transform = 'translate3d(0, 0, 0)';
-                                overlay.style.transform = 'scale(2.5)';
-                            });
-                            link.addEventListener('mouseleave', () => {
-                                const img = link.querySelector('img');
-                                const caption = link.querySelector('div:nth-of-type(1)');
-                                const overlay = link.querySelector('div:nth-of-type(2)');
-                                img.style.transform = 'scale(1)';
-                                caption.style.opacity = '0';
-                                caption.style.transform = 'translate3d(0, 2rem, 0)';
-                                overlay.style.transform = 'scale(0)';
-                            });
-                        });
-                    </script>
 
                     <style>
 
@@ -1443,6 +1195,90 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Product Showcase JS -->
     <script>
+    // Product data array - converted from PHP to JavaScript
+    const products = {
+        1: {
+            'name': 'Swimming Pool Glass Mosaic Tiles',
+            'category': 'Pool Tiles',
+            'category_slug': 'tiles',
+            'short_description': 'Manufacturer of premium glass mosaic tiles for swimming pools.',
+            'long_description': 'We manufacture and supply top-quality swimming pool glass mosaic tiles designed for aesthetic appeal and durability. Ideal for both residential and commercial pools, our tiles resist pool chemicals and maintain vibrant color.',
+            'features': [
+                'Premium glass construction',
+                'Resistant to pool chemicals and UV exposure',
+                'Non-slip surface options available',
+                'Wide variety of colors and designs',
+                'Easy installation and maintenance'
+            ],
+            'images': [
+                'images/glasstile.jpg',
+                'images/glasstile.jpg',
+                'images/glasstile.jpg'
+            ],
+            'related_products': [2, 3, 4]
+        },
+        2: {
+            'name': 'Vinyl Pool Liners',
+            'category': 'Pool Liners',
+            'category_slug': 'liners',
+            'short_description': 'Durable vinyl liners that fit perfectly between water and pool structure.',
+            'long_description': 'Our vinyl pool liners act as a protective layer between the water and the pool structure. Custom-manufactured for a perfect fit, they lock into the track at deck level and provide a smooth, durable, and chemical-resistant surface.',
+            'features': [
+                'Heavy-duty vinyl material',
+                'Custom-made for perfect fit',
+                'Locks securely into pool track',
+                'Resistant to fading and tearing',
+                'Smooth and comfortable surface'
+            ],
+            'images': [
+                'images/poolliner.jpg',
+                'images/poolliner.jpg',
+                'images/poolliner.jpg'
+            ],
+            'related_products': [1, 3, 4]
+        },
+        3: {
+            'name': 'Sand Pool Filters',
+            'category': 'Pool Filters',
+            'category_slug': 'filters',
+            'short_description': 'Reliable sand filters designed for effective pool water cleaning.',
+            'long_description': 'Our sand pool filters use a thick bed of special-grade sand to trap debris and impurities. Made from durable materials like fiberglass or metal, these filters ensure crystal clear water with easy maintenance and long-lasting performance.',
+            'features': [
+                'Thick special-grade sand bed',
+                'Fiberglass or metal tank options',
+                'Effective debris and dirt filtration',
+                'Pressure gauge and multi-port valve included',
+                'Easy backwashing and maintenance'
+            ],
+            'images': [
+                'images/filter.jpg',
+                'images/filter.jpg',
+                'images/filter.jpg'
+            ],
+            'related_products': [1, 2, 4]
+        },
+        4: {
+            'name': 'Readymade Swimming Pools',
+            'category': 'Readymade Pools',
+            'category_slug': 'pools',
+            'short_description': 'Prefabricated swimming pools including FRP pools, inflatable spa pools, and hydrotherapy pools.',
+            'long_description': 'We offer a range of readymade swimming pools such as FRP pools, inflatable spa pools, and hydrotherapy pools. Manufactured with high-quality materials, these pools are designed for quick installation, durability, and easy maintenance.',
+            'features': [
+                'Prefabricated for fast installation',
+                'Durable FRP and other material options',
+                'Low maintenance requirements',
+                'Various shapes and sizes available',
+                'Suitable for residential and commercial use'
+            ],
+            'images': [
+                'images/readymade.jpg',
+                'images/readymade.jpg',
+                'images/readymade.jpg'
+            ],
+            'related_products': [1, 2, 3]
+        }
+    };
+
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize AOS
         AOS.init({
@@ -1467,6 +1303,206 @@ document.addEventListener('DOMContentLoaded', function() {
                 const img = this.querySelector('.product-image img');
                 if (overlay) overlay.style.opacity = '0';
                 if (img) img.style.transform = 'scale(1)';
+            });
+        });
+
+        // Render products
+        renderProducts(products);
+
+        // Set up filter buttons
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const filterStatus = document.getElementById('filter-status');
+        const productsContainer = document.getElementById('products-container');
+        
+        // Category name mapping for display
+        const categoryNames = {
+            'all': 'all products',
+            'tiles': 'Pool Tiles',
+            'filters': 'Pool Filters',
+            'pools': 'Readymade Pools',
+            'liners': 'Pool Liners'
+        };
+        
+        // Function to update filter status text
+        function updateFilterStatus(category, count) {
+            filterStatus.innerHTML = `<span>Showing ${count} ${categoryNames[category]}${count !== 1 ? '' : ''}</span>`;
+            
+            // Animate the status text
+            filterStatus.style.opacity = '0';
+            setTimeout(() => {
+                filterStatus.style.opacity = '1';
+            }, 300);
+        }
+        
+        // Function to filter products with animation
+        function filterProducts(category) {
+            let visibleCount = 0;
+            const productItems = document.querySelectorAll('.product-item');
+
+            productItems.forEach(item => {
+                item.classList.add('fade-out');
+            });
+
+            setTimeout(() => {
+                productItems.forEach(item => {
+                    const itemCategory = item.dataset.category.toLowerCase();
+                    const filterCategory = category.toLowerCase();
+
+                    if (filterCategory === 'all' || itemCategory === filterCategory) {
+                        item.style.display = 'block';
+                        item.classList.remove('fade-out');
+                        item.classList.add('fade-in');
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('fade-in');
+                    }
+                });
+
+                updateFilterStatus(category, visibleCount);
+
+                setTimeout(() => {
+                    productItems.forEach(item => {
+                        item.classList.remove('fade-in');
+                    });
+                }, 500);
+            }, 300);
+        }
+        
+        // Add click event to filter buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get the category from data attribute
+                const category = this.dataset.category;
+                
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Filter the products
+                filterProducts(category);
+                
+                // Scroll to products container if needed (on mobile)
+                if (window.innerWidth < 768) {
+                    const yOffset = -20; 
+                    const y = productsContainer.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }
+            });
+        });
+
+        // Set up search functionality
+        const searchForm = document.getElementById('product-search-form');
+        const searchInput = document.getElementById('search-input');
+
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchQuery = searchInput.value.trim().toLowerCase();
+            
+            if (searchQuery === '') {
+                // If search is empty, show all products
+                filterProducts('all');
+                return;
+            }
+            
+            // Reset filter buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+            
+            // Filter products based on search
+            const productItems = document.querySelectorAll('.product-item');
+            let visibleCount = 0;
+            
+            productItems.forEach(item => {
+                item.classList.add('fade-out');
+            });
+            
+            setTimeout(() => {
+                productItems.forEach(item => {
+                    const productName = item.querySelector('h3').textContent.toLowerCase();
+                    const productDesc = item.querySelector('p').textContent.toLowerCase();
+                    const productCategory = item.dataset.category.toLowerCase();
+                    
+                    if (productName.includes(searchQuery) || 
+                        productDesc.includes(searchQuery) || 
+                        productCategory.includes(searchQuery)) {
+                        item.style.display = 'block';
+                        item.classList.remove('fade-out');
+                        item.classList.add('fade-in');
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('fade-in');
+                    }
+                });
+                
+                filterStatus.innerHTML = `<span>Found ${visibleCount} product${visibleCount !== 1 ? 's' : ''} matching "${searchQuery}"</span>`;
+                filterStatus.style.opacity = '0';
+                setTimeout(() => {
+                    filterStatus.style.opacity = '1';
+                }, 300);
+                
+                setTimeout(() => {
+                    productItems.forEach(item => {
+                        item.classList.remove('fade-in');
+                    });
+                }, 500);
+            }, 300);
+        });
+
+        // Initialize with "All Products" selected
+        const initialCategory = 'all';
+        updateFilterStatus(initialCategory, Object.keys(products).length);
+    });
+
+    // Function to render products
+    function renderProducts(products) {
+        const productsContainer = document.getElementById('products-container');
+        let html = '';
+        
+        for (const [id, product] of Object.entries(products)) {
+            html += `
+            <div class="col-3 product-item" data-category="${product.category.toLowerCase()}" style="min-width:300px;" data-aos="fade-up" data-aos-delay="${(id % 3) * 100}">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${product.images[0]}" alt="${product.name}" class="img-fluid">
+                        <div class="overlay">
+                            <a href="product-details.html?id=${id}" class="btn btn-outline-light">View Details</a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 style="font-size: 1.5rem;">${product.name}</h3>
+                        <p style="font-size: 1rem;">${product.short_description}</p>
+                        <div class="price-request" style="font-size: 1.1rem;">Price on Request</div>
+                    </div>
+                </div>
+            </div>`;
+        }
+        
+        productsContainer.innerHTML = html;
+    }
+
+    // Gallery hover effects
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.gallery-item a').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                const img = link.querySelector('img');
+                const overlay = link.querySelector('.gallery-overlay');
+                if (img) img.style.transform = 'scale(1.2)';
+                if (overlay) overlay.style.opacity = '1';
+                if (overlay) overlay.style.transform = 'scale(1)';
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                const img = link.querySelector('img');
+                const overlay = link.querySelector('.gallery-overlay');
+                if (img) img.style.transform = 'scale(1)';
+                if (overlay) overlay.style.opacity = '0';
+                if (overlay) overlay.style.transform = 'scale(0.95)';
             });
         });
     });
